@@ -12,6 +12,9 @@ import fr.diginamic.recensement.services.RechercheRegionsPlusPeuplees;
 import fr.diginamic.recensement.services.RechercheVillesPlusPeupleesDepartement;
 import fr.diginamic.recensement.services.RechercheVillesPlusPeupleesFrance;
 import fr.diginamic.recensement.services.RechercheVillesPlusPeupleesRegion;
+import fr.diginamic.recensement.services.exceptions.LetterEnteredWaitForNb;
+import fr.diginamic.recensement.services.exceptions.MaxInferiorToMin;
+import fr.diginamic.recensement.services.exceptions.ValeurInconnu;
 import fr.diginamic.recensement.utils.RecensementUtils;
 
 /**
@@ -29,7 +32,7 @@ public class Application {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		String filePath = ClassLoader.getSystemClassLoader().getResource("recensement.csv").getFile();
+		String filePath = "D:/_DevWeb/Diginamic/Java/TP_ApprocheObjet/TP/recensement.csv";
 		Recensement recensement = RecensementUtils.lire(filePath);
 
 		if (recensement == null) {
@@ -66,8 +69,16 @@ public class Application {
 				break;
 			case 4:
 				RecherchePopulationBorneService recherchePopBorne = new RecherchePopulationBorneService();
-				recherchePopBorne.traiter(recensement, scanner);
-				break;
+                try {
+                    recherchePopBorne.traiter(recensement, scanner);
+                } catch (LetterEnteredWaitForNb e) {
+                    System.err.println(e.getMessage());
+                } catch (MaxInferiorToMin e) {
+					System.err.println(e.getMessage());
+				} catch (ValeurInconnu e){
+					System.err.println((e.getMessage()));
+				}
+                break;
 			case 5:
 				RechercheVillesPlusPeupleesDepartement rechercheVillesPlusPeupleesDepartement = new RechercheVillesPlusPeupleesDepartement();
 				rechercheVillesPlusPeupleesDepartement.traiter(recensement, scanner);

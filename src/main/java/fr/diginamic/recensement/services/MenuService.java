@@ -3,6 +3,9 @@ package fr.diginamic.recensement.services;
 import java.util.Scanner;
 
 import fr.diginamic.recensement.entites.Recensement;
+import fr.diginamic.recensement.services.exceptions.LetterEnteredWaitForNb;
+import fr.diginamic.recensement.services.exceptions.MaxInferiorToMin;
+import fr.diginamic.recensement.services.exceptions.ValeurInconnu;
 
 /**
  * Classe représentant un service
@@ -19,5 +22,5 @@ public abstract class MenuService {
 	 * @param lignes  lignes du fichier
 	 * @param scanner scanner
 	 */
-	public abstract void traiter(Recensement recensement, Scanner scanner);
+	public abstract void traiter(Recensement recensement, Scanner scanner) throws LetterEnteredWaitForNb, MaxInferiorToMin, ValeurInconnu;
 }
